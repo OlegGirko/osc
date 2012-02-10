@@ -148,6 +148,7 @@ class Buildinfo:
             self.pathes.append(node.get('project')+"/"+node.get('repository'))
 
         self.vminstall_list = [ dep.name for dep in self.deps if dep.vminstall ]
+        self.sb2install_list = [ dep.name for dep in self.deps if dep.sb2install ]
         self.preinstall_list = [ dep.name for dep in self.deps if dep.preinstall ]
         self.runscripts_list = [ dep.name for dep in self.deps if dep.runscripts ]
 
@@ -177,6 +178,7 @@ class Pac:
                   'version', 'release',
                   'project', 'repository',
                   'preinstall', 'vminstall', 'noinstall', 'runscripts',
+                  'sb2install',
                  ]:
             self.mp[i] = node.get(i)
 
@@ -899,6 +901,7 @@ def main(apiurl, opts, argv):
 
     rpmlist.append('preinstall: ' + ' '.join(bi.preinstall_list) + '\n')
     rpmlist.append('vminstall: ' + ' '.join(bi.vminstall_list) + '\n')
+    rpmlist.append('sb2install: ' + ' '.join(bi.sb2install_list) + '\n')
     rpmlist.append('runscripts: ' + ' '.join(bi.runscripts_list) + '\n')
 
     rpmlist_file = NamedTemporaryFile(prefix='rpmlist.')
