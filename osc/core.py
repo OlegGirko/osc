@@ -6281,6 +6281,7 @@ def copy_prj(src_apiurl: str,
              withhistory: bool = False,
              makeolder: bool = False,
              resign: bool = False,
+             now: bool = False,
              comment: Optional[str] = None):
     """
     Create a copy of a project.
@@ -6300,6 +6301,8 @@ def copy_prj(src_apiurl: str,
         query['resign'] = '1'
     if comment:
         query['comment'] = comment
+    if now:
+        query['nodelay'] = '1'
     u = makeurl(src_apiurl, ['source', dst_project], query=query)
     print("copyprj ", u, file=sys.stderr)
     f = http_POST(u)
