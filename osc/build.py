@@ -822,6 +822,12 @@ def main(apiurl, store, opts, argv):
         buildargs.append('--clean')
     if opts.checks:
         buildargs.append('--checks')
+    if opts.rebuild:
+        if not opts.rsyncsrc or not opts.rsyncdest:
+            sys.stderr.write('Warning: --rebuild option is usually used with both --rsync-src and --rsync-dest\n')
+        buildargs.append('--skip-prep')
+    if opts.chroot_only:
+        buildargs.append('--chroot-only')
     if opts.nochecks:
         buildargs.append('--no-checks')
     if not opts.no_changelog:
