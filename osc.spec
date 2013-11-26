@@ -9,29 +9,73 @@ Name:       osc
 # << macros
 
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-Summary:    OpenSUSE Build Service Commander
-Version:    0.135.1
-Release:    mer2
-Group:      Development/Tools/Other
-License:    GPL v2 or later
-BuildArch:  noarch
-URL:        http://www.gitorious.org/opensuse/osc
-Source0:    osc-%{version}.tar.bz2
-Source100:  osc.yaml
-Patch0:     0001-Add-sb2install-support-to-osc.patch
-Patch1:     0002-Support-osc-copyprj-in-api-by-Islam-Amer.patch
-Patch2:     0003-Support-synchronous-copyproj.patch
-Patch3:     0004-Add-p-to-copyprj-to-enable-copying-of-prjconf.patch
-Patch4:     0005-Add-support-for-rebuild-and-chroot-only-in-build.patch
-Patch5:     0006-Add-architecture-and-scheduler-maps.patch
-Patch6:     0007-Trap-any-kind-of-exception-during-plugin-parsing-eg-.patch
-Requires:   python-urlgrabber
-Requires:   m2crypto > 0.19
-Requires:   /usr/bin/less
-Requires:   /usr/bin/diff3
-BuildRequires:  python-devel
+Summary:        OpenSUSE Build Service Commander
+Version:        0.142.0
+Release:        mer0
+Group:          Development/Tools/Other
+License:        GPL v2 or later
+BuildArch:      noarch
+URL:            http://www.gitorious.org/opensuse/osc
+Source0:        osc-%{version}.tar.bz2
+Source100:      osc.yaml
+Patch0:         0001-Add-sb2install-support-to-osc.patch
+Patch1:         0002-Support-osc-copyprj-in-api-by-Islam-Amer.patch
+Patch2:         0003-Support-synchronous-copyproj.patch
+Patch3:         0004-Add-p-to-copyprj-to-enable-copying-of-prjconf.patch
+Patch4:         0005-Add-support-for-rebuild-and-chroot-only-in-build.patch
+Patch5:         0006-Add-architecture-and-scheduler-maps.patch
+Patch6:         0007-Trap-any-kind-of-exception-during-plugin-parsing-eg-.patch
+%if 0%{?mandriva_version} < 02010
 BuildRequires:  python-urlgrabber
+Requires:       python-urlgrabber
+%endif
+BuildRequires:  python-devel
+%if 0%{?mandriva_version}
+BuildRequires:  python-rpm
+Requires:       python-rpm
+%else
+BuildRequires:  rpm-python
+Requires:       rpm-python
+%endif
+#
+%if 0%{?suse_version}
+%if 0%{?suse_version} < 1020
+BuildRequires:  python-elementtree
+Requires:       python-elementtree
+%else
+BuildRequires:  python-xml
+Requires:       python-xml
+%endif
+%if 0%{?suse_version} > 1110
+BuildArch:      noarch
+%endif
+%if 0%{?suse_version} > 1000
+Recommends:     build >= 2010.05.04
+# These packages are needed for "osc add $URL"
+Recommends:     obs-service-recompress
+Recommends:     obs-service-set_version
+Recommends:     obs-service-tar_scm
+Recommends:     obs-service-verify_file
+Recommends:     obs-service-download_files
+Recommends:     obs-service-format_spec_file
+Recommends:     obs-service-source_validator
+%endif
+%endif
+%if 0%{?rhel_version} && 0%{?rhel_version} < 600
+BuildRequires:  python-elementtree
+Requires:       python-elementtree
+%endif
+%if 0%{?centos_version} && 0%{?centos_version} < 600
+BuildRequires:  python-elementtree
+Requires:       python-elementtree
+%endif
+%if 0%{?suse_version}%{?mandriva_version}
+BuildRequires:  python-m2crypto
+Requires:       python-m2crypto > 0.19
+%else
 BuildRequires:  m2crypto
+Requires:       m2crypto > 0.19
+%endif
 
 %description
 Commandline client for the openSUSE Build Service.

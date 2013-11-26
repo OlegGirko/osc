@@ -1,3 +1,6 @@
+* Tue Nov 26 2013 Oleg Girko <oleg.girko@jolla.com> - 0.142.0
+- New upstream 0.142.0
+
 * Tue Apr 2013 David Greaves <david@dgreaves.com> - 0.135.1-mer2
 - Trap any kind of exception during plugin parsing (eg IOError for a dangling symlink)
 - Add architecture and scheduler maps
