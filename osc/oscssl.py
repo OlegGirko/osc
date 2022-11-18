@@ -260,7 +260,7 @@ class myHTTPSConnection(M2Crypto.httpslib.HTTPSConnection):
         # workaround for old M2Crypto versions where the the
         # SSL.Connection.__init__ constructor has no "family" parameter
         kwargs = {}
-        argspec = inspect.getargspec(SSL.Connection.__init__)
+        argspec = inspect.getfullargspec(SSL.Connection.__init__)
         if 'family' in argspec.args:
             kwargs['family'] = family
         elif family != socket.AF_INET:
